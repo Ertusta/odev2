@@ -17,6 +17,7 @@ public:
     int getCredit();
     int getCourseNumber();
     char getGrade();
+    ~courseType();
 };
 
 
@@ -40,6 +41,7 @@ public:
     int getHoursEnrolled();
     char getGpa();
     float getBillingAmount();
+    ~studentType();
 
 };
 
@@ -48,9 +50,11 @@ class personType : public studentType{//çocuk
 protected:
     string lastName;
 public:
-
+ personType(string firstName, string lastName, int studentID, int numberOfCourses, bool isTuitionPaid);
+ ~personType();
 };
 
 int main() {
+
     return 0;
 }

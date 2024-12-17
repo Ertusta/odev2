@@ -14,14 +14,17 @@ private:
 
 public:
     courseType(string courseName, string courseNo, int courseCredit, char courseGrade);
+
+    courseType() {}
     void setCourseinfo();
     void print(int a)
     {
         cout << courseName << endl
              << courseNo << endl
              << courseCredit << endl
-             << courseGrade<< endl
-             << "--------------" << endl;;
+             << courseGrade << endl
+             << "--------------" << endl;
+        ;
     };
     void print(int a, int b); // iki tane olcak
     int getCredit();
@@ -38,6 +41,9 @@ protected:
 
 public:
     personType(string firstName, string lastName);
+    personType(){
+
+    }
     ~personType() {};
 };
 
@@ -47,10 +53,15 @@ private:
     int studentID;
     int numberOfCourses;
     bool isTuitionPaid;
-    courseType *coursesEnrolled; // dinamik bellek tahsis etcez herhalde bi yerde
+    // dinamik bellek tahsis etcez herhalde bi yerde
 
 public:
+    courseType *coursesEnrolled;
     studentType(string firstName, string lastName, int studentID, int numberOfCourses, bool istuitionPaid);
+    studentType()
+    {
+
+    }
     void setInfo(); // input.txt den okuycak muhtemelen
     void setName();
     void getName();
@@ -77,14 +88,6 @@ personType::personType(string firstName, string lastName)
     this->lastName = lastName;
 }
 
-studentType::studentType(string firstName, string lastName, int studentID, int numberOfCourses, bool isTuitionPaid) : personType(firstName, lastName)
-{
-
-    this->studentID = studentID;             // Öğrenci ID'sini ata
-    this->numberOfCourses = numberOfCourses; // Ders sayısını ata
-    this->isTuitionPaid = isTuitionPaid;     // Harç ödendi mi durumunu ata
-}
-
 courseType::courseType(string courseName, string courseNo, int courseCredit, char courseGrade)
 {
     this->courseName = courseName;
@@ -93,7 +96,16 @@ courseType::courseType(string courseName, string courseNo, int courseCredit, cha
     this->courseGrade = courseGrade;
 }
 
-int takePerson(string line)
+studentType::studentType(string firstName, string lastName, int studentID, int numberOfCourses, bool isTuitionPaid) : personType(firstName, lastName)
+{
+
+    this->studentID = studentID;             // Öğrenci ID'sini ata
+    this->numberOfCourses = numberOfCourses; // Ders sayısını ata
+    this->isTuitionPaid = isTuitionPaid;     // Harç ödendi mi durumunu ata
+    coursesEnrolled = new courseType[numberOfCourses];
+}
+
+studentType takePerson(string line)
 {
     stringstream ss(line);
     string firstName, lastName;
@@ -112,13 +124,13 @@ int takePerson(string line)
     ss.ignore(1);
 
     studentType a(firstName, lastName, studentID, numberOfCourses, istuitionPaid);
-    a.print();
+    
     ss.clear();
 
-    return 0;
+    return a;
 }
 
-int takeCourse(string line)
+courseType takeCourse(string line)
 {
     stringstream ss(line);
     ss.str(line); // Stringstream ile satırı işleme
@@ -138,11 +150,11 @@ int takeCourse(string line)
 
     courseType course(courseName, courseNo, courseCredit, courseGrade);
 
-    course.print(8);
+    
 
     ss.clear();
 
-    return 0;
+    return course;
 }
 int main()
 {
@@ -150,23 +162,54 @@ int main()
     const string fileName = "input.txt";
     ifstream inputFile(fileName);
     string line;
+    studentType *students ;
+    students=new studentType[10];
+    int counter1=0;
+    int counter2=0;
 
-
-    while (getline(inputFile, line) ) {
+    while (getline(inputFile, line))
+    {
         stringstream iss(line);
         string word;
         int wordCount = 0;
+        studentType target;
+        
+        
 
-        while (iss >> word) {
+        while (iss >> word)
+        {
             wordCount++;
         }
 
-        if (wordCount == 5) {
-            takePerson(line);
-        } else if (wordCount == 4) {
-            takeCourse(line);
-        } 
+        if (wordCount == 5)
+        {
+
+            target = takePerson(line);
+            students[counter1]=target;
+            counter1++;
+            counter2=0;
+        }
+        else if (wordCount == 4)
+        {
+            target.coursesEnrolled[counter2] = takeCourse(line);
+            counter2++;
+        }
     }
+
+    students[0].print();
+    students[0].coursesEnrolled[0].print(9);
+    students[0].coursesEnrolled[1].print(9);
+    students[0].coursesEnrolled[2].print(9);
+    students[0].coursesEnrolled[3].print(9);
+    students[1].print();
+    students[1].coursesEnrolled[0].print(9);
+    students[1].coursesEnrolled[1].print(9);
+    students[1].coursesEnrolled[2].print(9);
+    students[2].print();
+    students[2].coursesEnrolled[0].print(9);
+    students[2].coursesEnrolled[1].print(9);
+  
+    
 
     inputFile.close();
     return 0;

@@ -1,13 +1,13 @@
+3 345
 Lisa Miller 890238 Y 4
 Mathematics MTH345 4 A
 Physics PHY357 3 B
 ComputerSci CSC478 3 B
 History HIS356 3 A
-John Carter 781045 N 3
-Mathematics MTH245 4 B
-Physics PHY257 3 A
-ComputerSci CSC378 3 A
-Sophia Johnson 902374 Y 2
-Mathematics MTH145 4 A
-Physics PHY157 3 B
-
+John Doe 123456 N 3
+Biology BIO101 3 C
+Chemistry CHE102 4 B
+Physics PHY103 3 A
+Emily Davis 789012 Y 2
+Art ART201 2 A
+Music MUS202 3 A

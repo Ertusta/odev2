@@ -1,0 +1,20 @@
+Student Name: Lisa Miller
+Student ID: 890238
+Number of courses enrolled: 4
+Course No Course Name         Credits Grade
+Total number of credits: 13
+Mid-Semester GPA: 3.54
+
+Student Name: John Doe
+Student ID: 123456
+Number of courses enrolled: 3
+Grades are being withheld due to unpaid tuition.
+Tuition due: $3450
+
+Student Name: Emily Davis
+Student ID: 789012
+Number of courses enrolled: 2
+Course No Course Name         Credits Grade
+Total number of credits: 5
+Mid-Semester GPA: 4.00
+

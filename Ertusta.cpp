@@ -1,216 +1,206 @@
-#include <string>
-#include <fstream>
-#include <sstream>
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+#include <algorithm>
+
 using namespace std;
 
-class courseType
-{ // yan class
+// personType class
+class personType {
+protected:
+    string firstName;
+    string lastName;
+
+public:
+    void setName(const string& first, const string& last) {
+        firstName = first;
+        lastName = last;
+    }
+
+    string getName() const {
+        return firstName + " " + lastName;
+    }
+
+    void printName() const {
+        cout << firstName << " " << lastName;
+    }
+};
+
+// courseType class
+class courseType {
 private:
     string courseName;
-    string courseNo;
-    int courseCredit;
-    char courseGrade;
+    string courseNumber;
+    int creditHours;
+    char grade;
 
 public:
-    courseType(string courseName, string courseNo, int courseCredit, char courseGrade);
-
-    courseType() {}
-    void setCourseinfo();
-    void print(int a)
-    {
-        cout << courseName << endl
-             << courseNo << endl
-             << courseCredit << endl
-             << courseGrade << endl
-             << "--------------" << endl;
-        ;
-    };
-    void print(int a, int b); // iki tane olcak
-    int getCredit();
-    int getCourseNumber();
-    char getGrade();
-    ~courseType() {};
-};
-
-class personType
-{ // ana
-protected:
-    string lastName;
-    string firstName;
-
-public:
-    personType(string firstName, string lastName);
-    personType(){
-
+    void setCourseInfo(const string& name, const string& number, int credits, char gr) {
+        courseName = name;
+        courseNumber = number;
+        creditHours = credits;
+        grade = gr;
     }
-    ~personType() {};
+
+    void printCourseInfo(ofstream& outFile) const {
+        outFile << left << setw(10) << courseNumber
+             << setw(20) << courseName
+             << setw(8) << creditHours
+             << grade << endl;
+    }
+
+    string getCourseNumber() const { return courseNumber; }
+
+    int getCreditHours() const { return creditHours; }
+
+    char getGrade() const { return grade; }
 };
 
-class studentType : public personType
-{ // çocuk
+// studentType class
+class studentType : public personType {
 private:
-    int studentID;
-    int numberOfCourses;
+    string studentID;
     bool isTuitionPaid;
-    // dinamik bellek tahsis etcez herhalde bi yerde
+    int numberOfCourses;
+    courseType* courses;
 
 public:
-    courseType *coursesEnrolled;
-    studentType(string firstName, string lastName, int studentID, int numberOfCourses, bool istuitionPaid);
-    studentType()
-    {
+    studentType() : courses(nullptr), numberOfCourses(0) {}
 
+    ~studentType() {
+        delete[] courses;
     }
-    void setInfo(); // input.txt den okuycak muhtemelen
-    void setName();
-    void getName();
-    void print()
-    {
-        cout << firstName << endl
-             << lastName << endl
-             << studentID << endl
-             << isTuitionPaid << endl
-             << numberOfCourses << endl
-             << "--------------" << endl;
-    }; // başka dosya oluşturacak herhalde bunlar
-    void print(int a);
-    void print(int a, int b); // 3 tane olcak
-    int getHoursEnrolled();
-    char getGpa();
-    float getBillingAmount();
-    ~studentType() {};
+
+    void setStudentInfo(const string& first, const string& last, const string& id, bool tuitionPaid, int numCourses) {
+        setName(first, last);
+        studentID = id;
+        isTuitionPaid = tuitionPaid;
+        numberOfCourses = numCourses;
+
+        if (courses != nullptr)
+            delete[] courses;
+
+        courses = new courseType[numberOfCourses];
+    }
+
+    void setCourse(int index, const courseType& course) {
+        if (index >= 0 && index < numberOfCourses) {
+            courses[index] = course;
+        }
+    }
+
+    void sortCourses() {
+        for (int i = 0; i < numberOfCourses - 1; ++i) {
+            for (int j = i + 1; j < numberOfCourses; ++j) {
+                if (courses[i].getCourseNumber() > courses[j].getCourseNumber()) {
+                    swap(courses[i], courses[j]);
+                }
+            }
+        }
+    }
+
+    int getTotalCredits() const {
+        int total = 0;
+        for (int i = 0; i < numberOfCourses; ++i)
+            total += courses[i].getCreditHours();
+        return total;
+    }
+
+    double calculateGPA() const {
+        if (!isTuitionPaid) return 0.0;
+
+        double totalPoints = 0.0;
+        int totalCredits = 0;
+
+        for (int i = 0; i < numberOfCourses; ++i) {
+            int credits = courses[i].getCreditHours();
+            totalCredits += credits;
+
+            switch (courses[i].getGrade()) {
+            case 'A': totalPoints += 4.0 * credits; break;
+            case 'B': totalPoints += 3.0 * credits; break;
+            case 'C': totalPoints += 2.0 * credits; break;
+            case 'D': totalPoints += 1.0 * credits; break;
+            case 'F': totalPoints += 0.0 * credits; break;
+            }
+        }
+
+        return totalCredits > 0 ? totalPoints / totalCredits : 0.0;
+    }
+
+    void printReport(ofstream& outFile, int tuitionPerCredit) const {
+        outFile << "Student Name: " << getName() << endl;
+        outFile << "Student ID: " << studentID << endl;
+        outFile << "Number of courses enrolled: " << numberOfCourses << endl;
+
+        if (isTuitionPaid) {
+            outFile << left << setw(10) << "Course No"
+                    << setw(20) << "Course Name"
+                    << setw(8) << "Credits"
+                    << "Grade" << endl;
+
+            for (int i = 0; i < numberOfCourses; ++i)
+                courses[i].printCourseInfo(outFile);
+
+            outFile << "Total number of credits: " << getTotalCredits() << endl;
+            outFile << "Mid-Semester GPA: " << fixed << setprecision(2) << calculateGPA() << endl;
+        } else {
+            outFile << "Grades are being withheld due to unpaid tuition." << endl;
+            outFile << "Tuition due: $" << getTotalCredits() * tuitionPerCredit << endl;
+        }
+
+        outFile << endl;
+    }
 };
 
-personType::personType(string firstName, string lastName)
-{
-    this->firstName = firstName;
-    this->lastName = lastName;
-}
+int main() {
+    ifstream inFile("input.txt");
+    ofstream outFile("output.txt");
 
-courseType::courseType(string courseName, string courseNo, int courseCredit, char courseGrade)
-{
-    this->courseName = courseName;
-    this->courseNo = courseNo;
-    this->courseCredit = courseCredit;
-    this->courseGrade = courseGrade;
-}
-
-studentType::studentType(string firstName, string lastName, int studentID, int numberOfCourses, bool isTuitionPaid) : personType(firstName, lastName)
-{
-
-    this->studentID = studentID;             // Öğrenci ID'sini ata
-    this->numberOfCourses = numberOfCourses; // Ders sayısını ata
-    this->isTuitionPaid = isTuitionPaid;     // Harç ödendi mi durumunu ata
-    coursesEnrolled = new courseType[numberOfCourses];
-}
-
-studentType takePerson(string line)
-{
-    stringstream ss(line);
-    string firstName, lastName;
-    int studentID, numberOfCourses;
-    char istuitionPaid;
-
-    ss >> firstName;
-    ss.ignore(1);
-    ss >> lastName;
-    ss.ignore(1);
-    ss >> studentID;
-    ss.ignore(1);
-    ss >> istuitionPaid;
-    ss.ignore(1);
-    ss >> numberOfCourses;
-    ss.ignore(1);
-
-    studentType a(firstName, lastName, studentID, numberOfCourses, istuitionPaid);
-    
-    ss.clear();
-
-    return a;
-}
-
-courseType takeCourse(string line)
-{
-    stringstream ss(line);
-    ss.str(line); // Stringstream ile satırı işleme
-
-    string courseName, courseNo;
-    int courseCredit;
-    char courseGrade;
-
-    // Kurs adını, kurs numarasını, krediyi ve notu okuma
-    ss >> courseName;
-    ss.ignore(1);
-    ss >> courseNo;
-    ss.ignore(1);
-    ss >> courseCredit;
-    ss.ignore(1);
-    ss >> courseGrade;
-
-    courseType course(courseName, courseNo, courseCredit, courseGrade);
-
-    
-
-    ss.clear();
-
-    return course;
-}
-int main()
-{
-    int lineCounter = 0; // Satır sayısını tutmak için
-    const string fileName = "input.txt";
-    ifstream inputFile(fileName);
-    string line;
-    studentType *students ;
-    students=new studentType[10];
-    int counter1=0;
-    int counter2=0;
-
-    while (getline(inputFile, line))
-    {
-        stringstream iss(line);
-        string word;
-        int wordCount = 0;
-        studentType target;
-        
-        
-
-        while (iss >> word)
-        {
-            wordCount++;
-        }
-
-        if (wordCount == 5)
-        {
-
-            target = takePerson(line);
-            students[counter1]=target;
-            counter1++;
-            counter2=0;
-        }
-        else if (wordCount == 4)
-        {
-            target.coursesEnrolled[counter2] = takeCourse(line);
-            counter2++;
-        }
+    if (!inFile || !outFile) {
+        cerr << "Error opening files." << endl;
+        return 1;
     }
 
-    students[0].print();
-    students[0].coursesEnrolled[0].print(9);
-    students[0].coursesEnrolled[1].print(9);
-    students[0].coursesEnrolled[2].print(9);
-    students[0].coursesEnrolled[3].print(9);
-    students[1].print();
-    students[1].coursesEnrolled[0].print(9);
-    students[1].coursesEnrolled[1].print(9);
-    students[1].coursesEnrolled[2].print(9);
-    students[2].print();
-    students[2].coursesEnrolled[0].print(9);
-    students[2].coursesEnrolled[1].print(9);
-  
-    
+    int studentCount, tuitionPerCredit;
+    inFile >> studentCount >> tuitionPerCredit;
 
-    inputFile.close();
+    studentType* students = new studentType[studentCount];
+
+    for (int i = 0; i < studentCount; ++i) {
+        string firstName, lastName, studentID;
+        char tuitionPaid;
+        int numCourses;
+
+        inFile >> firstName >> lastName >> studentID >> tuitionPaid >> numCourses;
+
+        students[i].setStudentInfo(firstName, lastName, studentID, tuitionPaid == 'Y', numCourses);
+
+        for (int j = 0; j < numCourses; ++j) {
+            string courseName, courseNumber;
+            int creditHours;
+            char grade;
+
+            inFile >> courseName >> courseNumber >> creditHours >> grade;
+
+            courseType course;
+            course.setCourseInfo(courseName, courseNumber, creditHours, grade);
+            students[i].setCourse(j, course);
+        }
+
+        students[i].sortCourses();
+    }
+
+    for (int i = 0; i < studentCount; ++i) {
+        students[i].printReport(outFile, tuitionPerCredit);
+    }
+
+    delete[] students;
+
+    inFile.close();
+    outFile.close();
+
+    cout << "Reports generated successfully in output.txt." << endl;
     return 0;
 }

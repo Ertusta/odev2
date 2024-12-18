@@ -2,6 +2,10 @@ Student Name: Lisa Miller
 Student ID: 890238
 Number of courses enrolled: 4
 Course No Course Name         Credits Grade
+CSC478    ComputerSci         3       B
+HIS356    History             3       A
+MTH345    Mathematics         4       A
+PHY357    Physics             3       B
 Total number of credits: 13
 Mid-Semester GPA: 3.54
 
@@ -15,6 +19,8 @@ Student Name: Emily Davis
 Student ID: 789012
 Number of courses enrolled: 2
 Course No Course Name         Credits Grade
+ART201    Art                 2       A
+MUS202    Music               3       A
 Total number of credits: 5
 Mid-Semester GPA: 4.00
 

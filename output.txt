@@ -13,7 +13,7 @@ Student Name: John Doe
 Student ID: 123456
 Number of courses enrolled: 3
 Grades are being withheld due to unpaid tuition.
-Tuition due: $3450
+Tuition due: $3450.00
 
 Student Name: Emily Davis
 Student ID: 789012
@@ -23,4 +23,102 @@ ART201    Art                 2       A
 MUS202    Music               3       A
 Total number of credits: 5
 Mid-Semester GPA: 4.00
+
+Student Name: Sarah Johnson
+Student ID: 456789
+Number of courses enrolled: 4
+Course No Course Name         Credits Grade
+BIO126    Biology             3       A
+CHE125    Chemistry           3       A
+MTH123    Mathematics         3       B
+PHY124    Physics             4       B
+Total number of credits: 13
+Mid-Semester GPA: 3.46
+
+Student Name: Michael Brown
+Student ID: 987654
+Number of courses enrolled: 3
+Grades are being withheld due to unpaid tuition.
+Tuition due: $3105.00
+
+Student Name: David Wilson
+Student ID: 234567
+Number of courses enrolled: 4
+Course No Course Name         Credits Grade
+BIO304    Biology             4       A
+CHE302    Chemistry           3       B
+MTH303    Mathematics         3       C
+PHY301    Physics             4       A
+Total number of credits: 14
+Mid-Semester GPA: 3.36
+
+Student Name: Anna Smith
+Student ID: 345678
+Number of courses enrolled: 2
+Grades are being withheld due to unpaid tuition.
+Tuition due: $1725.00
+
+Student Name: James White
+Student ID: 567890
+Number of courses enrolled: 3
+Course No Course Name         Credits Grade
+CSC202    ComputerSci         3       A
+HIS203    History             3       C
+MTH201    Mathematics         3       B
+Total number of credits: 9
+Mid-Semester GPA: 3.00
+
+Student Name: Robert Green
+Student ID: 678901
+Number of courses enrolled: 3
+Grades are being withheld due to unpaid tuition.
+Tuition due: $3450.00
+
+Student Name: Sophia Martin
+Student ID: 789123
+Number of courses enrolled: 2
+Course No Course Name         Credits Grade
+ART301    Art                 2       A
+MUS302    Music               3       A
+Total number of credits: 5
+Mid-Semester GPA: 4.00
+
+Student Name: William Taylor
+Student ID: 890234
+Number of courses enrolled: 3
+Grades are being withheld due to unpaid tuition.
+Tuition due: $3105.00
+
+Student Name: Emma Thomas
+Student ID: 123789
+Number of courses enrolled: 4
+Course No Course Name         Credits Grade
+BIO504    Biology             3       B
+CHE503    Chemistry           3       A
+MTH501    Mathematics         4       A
+PHY502    Physics             3       B
+Total number of credits: 13
+Mid-Semester GPA: 3.54
+
+Student Name: Daniel Harris
+Student ID: 456123
+Number of courses enrolled: 2
+Grades are being withheld due to unpaid tuition.
+Tuition due: $1725.00
+
+Student Name: Grace Walker
+Student ID: 789456
+Number of courses enrolled: 3
+Course No Course Name         Credits Grade
+ART103    Art                 2       A
+HIS102    History             3       B
+MUS101    Music               3       A
+Total number of credits: 8
+Mid-Semester GPA: 3.62
+
+Student Name: Matthew Lewis
+Student ID: 123890
+Number of courses enrolled: 4
+Grades are being withheld due to unpaid tuition.
+Tuition due: $4830.00
 

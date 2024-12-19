@@ -1,4 +1,4 @@
-3 345
+15 345
 Lisa Miller 890238 Y 4
 Mathematics MTH345 4 A
 Physics PHY357 3 B
@@ -11,3 +11,52 @@ Physics PHY103 3 A
 Emily Davis 789012 Y 2
 Art ART201 2 A
 Music MUS202 3 A
+Sarah Johnson 456789 Y 4
+Mathematics MTH123 3 B
+Physics PHY124 4 B
+Chemistry CHE125 3 A
+Biology BIO126 3 A
+Michael Brown 987654 N 3
+History HIS201 3 B
+Sociology SOC202 3 C
+Psychology PSY203 3 A
+David Wilson 234567 Y 4
+Physics PHY301 4 A
+Chemistry CHE302 3 B
+Mathematics MTH303 3 C
+Biology BIO304 4 A
+Anna Smith 345678 N 2
+Art ART101 2 A
+Philosophy PHI102 3 B
+James White 567890 Y 3
+Mathematics MTH201 3 B
+ComputerSci CSC202 3 A
+History HIS203 3 C
+Robert Green 678901 N 3
+Physics PHY401 3 A
+Mathematics MTH402 3 B
+Biology BIO403 4 B
+Sophia Martin 789123 Y 2
+Art ART301 2 A
+Music MUS302 3 A
+William Taylor 890234 N 3
+Psychology PSY101 3 B
+Sociology SOC102 3 C
+History HIS103 3 A
+Emma Thomas 123789 Y 4
+Mathematics MTH501 4 A
+Physics PHY502 3 B
+Chemistry CHE503 3 A
+Biology BIO504 3 B
+Daniel Harris 456123 N 2
+Philosophy PHI201 2 B
+Art ART202 3 A
+Grace Walker 789456 Y 3
+Music MUS101 3 A
+History HIS102 3 B
+Art ART103 2 A
+Matthew Lewis 123890 N 4
+Physics PHY601 4 A
+Chemistry CHE602 3 C
+Biology BIO603 3 B
+Mathematics MTH604 4 A

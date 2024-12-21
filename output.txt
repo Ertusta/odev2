@@ -12,8 +12,8 @@ Mid-Semester GPA: 3.54
 Student Name: John Doe
 Student ID: 123456
 Number of courses enrolled: 3
-Grades are being withheld due to unpaid tuition.
-Tuition due: $3450.00
+notlar ogrenim ucreti odenmemesi nedeniyle bekletiliyor.
+Harc miktari: $3450.00
 
 Student Name: Emily Davis
 Student ID: 789012
@@ -38,8 +38,8 @@ Mid-Semester GPA: 3.46
 Student Name: Michael Brown
 Student ID: 987654
 Number of courses enrolled: 3
-Grades are being withheld due to unpaid tuition.
-Tuition due: $3105.00
+notlar ogrenim ucreti odenmemesi nedeniyle bekletiliyor.
+Harc miktari: $3105.00
 
 Student Name: David Wilson
 Student ID: 234567
@@ -55,8 +55,8 @@ Mid-Semester GPA: 3.36
 Student Name: Anna Smith
 Student ID: 345678
 Number of courses enrolled: 2
-Grades are being withheld due to unpaid tuition.
-Tuition due: $1725.00
+notlar ogrenim ucreti odenmemesi nedeniyle bekletiliyor.
+Harc miktari: $1725.00
 
 Student Name: James White
 Student ID: 567890
@@ -71,8 +71,8 @@ Mid-Semester GPA: 3.00
 Student Name: Robert Green
 Student ID: 678901
 Number of courses enrolled: 3
-Grades are being withheld due to unpaid tuition.
-Tuition due: $3450.00
+notlar ogrenim ucreti odenmemesi nedeniyle bekletiliyor.
+Harc miktari: $3450.00
 
 Student Name: Sophia Martin
 Student ID: 789123
@@ -86,8 +86,8 @@ Mid-Semester GPA: 4.00
 Student Name: William Taylor
 Student ID: 890234
 Number of courses enrolled: 3
-Grades are being withheld due to unpaid tuition.
-Tuition due: $3105.00
+notlar ogrenim ucreti odenmemesi nedeniyle bekletiliyor.
+Harc miktari: $3105.00
 
 Student Name: Emma Thomas
 Student ID: 123789
@@ -103,8 +103,8 @@ Mid-Semester GPA: 3.54
 Student Name: Daniel Harris
 Student ID: 456123
 Number of courses enrolled: 2
-Grades are being withheld due to unpaid tuition.
-Tuition due: $1725.00
+notlar ogrenim ucreti odenmemesi nedeniyle bekletiliyor.
+Harc miktari: $1725.00
 
 Student Name: Grace Walker
 Student ID: 789456
@@ -119,6 +119,6 @@ Mid-Semester GPA: 3.62
 Student Name: Matthew Lewis
 Student ID: 123890
 Number of courses enrolled: 4
-Grades are being withheld due to unpaid tuition.
-Tuition due: $4830.00
+notlar ogrenim ucreti odenmemesi nedeniyle bekletiliyor.
+Harc miktari: $4830.00
 

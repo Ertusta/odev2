@@ -37,14 +37,14 @@ private:
     char grade;
 
 public:
-   void setCourseInfo(const string &name, const string &number, int credits, char gr);
-   void print(ofstream &outFile) const;
-   string getCourseNumber() const;
-   int getCredits() const;
-   char getGrade() const;
-   courseType(const string &name, const string &number, int credits, char gr);
-   courseType();
-   ~courseType();
+    void setCourseInfo(const string &name, const string &number, int credits, char gr);
+    void print(ofstream &outFile) const;
+    string getCourseNumber() const;
+    int getCredits() const;
+    char getGrade() const;
+    courseType(const string &name, const string &number, int credits, char gr);
+    courseType();
+    ~courseType();
 };
 
 void courseType::setCourseInfo(const string &name, const string &number, int credits, char gr)
@@ -77,7 +77,7 @@ courseType::courseType(const string &name, const string &number, int credits, ch
     grade = gr;
 }
 
-courseType::courseType(){}
+courseType::courseType() {}
 
 courseType::~courseType() {}
 
@@ -104,132 +104,133 @@ public:
 studentType ::studentType() : courses(nullptr), numberOfCourses(0) {}
 
 studentType ::~studentType()
-    {
-        delete[] courses;
-    }
+{
+    delete[] courses;
+}
 
 void studentType ::setInfo(const string &first, const string &last, const string &id, bool tuitionPaid, int numCourses)
-    {
-        setName(first, last);
-        studentID = id;
-        isTuitionPaid = tuitionPaid;
-        numberOfCourses = numCourses;
+{
+    setName(first, last);
+    studentID = id;
+    isTuitionPaid = tuitionPaid;
+    numberOfCourses = numCourses;
 
-        if (courses != nullptr)
-            delete[] courses;
+    if (courses != nullptr)
+        delete[] courses;
 
-        courses = new courseType[numberOfCourses];
-    }
+    courses = new courseType[numberOfCourses];
+}
 
 void studentType ::setCourse(int index, const courseType &course)
+{
+    if (index >= 0 && index < numberOfCourses)
     {
-        if (index >= 0 && index < numberOfCourses)
-        {
-            courses[index] = course;
-        }
+        courses[index] = course;
     }
+}
 
 void studentType ::sortCourses()
+{
+    for (int i = 0; i < numberOfCourses - 1; ++i)
     {
-        for (int i = 0; i < numberOfCourses - 1; ++i)
+        for (int j = i + 1; j < numberOfCourses; ++j)
         {
-            for (int j = i + 1; j < numberOfCourses; ++j)
+            if (courses[i].getCourseNumber() > courses[j].getCourseNumber())
             {
-                if (courses[i].getCourseNumber() > courses[j].getCourseNumber())
-                {
-                    swap(courses[i], courses[j]);
-                }
+                swap(courses[i], courses[j]);
             }
         }
     }
+}
 
 int studentType ::getTotalCredits() const
-    {
-        int total = 0;
-        for (int i = 0; i < numberOfCourses; ++i)
-            total += courses[i].getCredits();
-        return total;
-    }
+{
+    int total = 0;
+    for (int i = 0; i < numberOfCourses; ++i)
+        total += courses[i].getCredits();
+    return total;
+}
 
 double studentType ::getGPA() const
+{
+    if (!isTuitionPaid)
+        return 0.0;
+
+    double totalPoints = 0.0;
+    int totalCredits = 0;
+
+    for (int i = 0; i < numberOfCourses; ++i)
     {
-        if (!isTuitionPaid)
-            return 0.0;
+        int credits = courses[i].getCredits();
+        totalCredits += credits;
 
-        double totalPoints = 0.0;
-        int totalCredits = 0;
-
-        for (int i = 0; i < numberOfCourses; ++i)
+        switch (courses[i].getGrade())
         {
-            int credits = courses[i].getCredits();
-            totalCredits += credits;
-
-            switch (courses[i].getGrade())
-            {
-            case 'A':
-                totalPoints += 4.0 * credits;
-                break;
-            case 'B':
-                totalPoints += 3.0 * credits;
-                break;
-            case 'C':
-                totalPoints += 2.0 * credits;
-                break;
-            case 'D':
-                totalPoints += 1.0 * credits;
-                break;
-            case 'F':
-                totalPoints += 0.0 * credits;
-                break;
-            }
+        case 'A':
+            totalPoints += 4.0 * credits;
+            break;
+        case 'B':
+            totalPoints += 3.0 * credits;
+            break;
+        case 'C':
+            totalPoints += 2.0 * credits;
+            break;
+        case 'D':
+            totalPoints += 1.0 * credits;
+            break;
+        case 'F':
+            totalPoints += 0.0 * credits;
+            break;
         }
-
-        return totalCredits > 0 ? totalPoints / totalCredits : 0.0;
     }
+
+    if (totalCredits > 0)
+    {
+        return totalPoints / totalCredits;
+    }
+    else
+    {
+        return 0.0;
+    }
+}
 
 double studentType ::billingAmount(int tuitionPerCredit) const
-    {
-        return getTotalCredits() * tuitionPerCredit;
-    }
+{
+    return getTotalCredits() * tuitionPerCredit;
+}
 
 void studentType ::print(ofstream &outFile, int tuitionPerCredit) const
+{
+    outFile << "Student Name: " << getName() << endl;
+    outFile << "Student ID: " << studentID << endl;
+    outFile << "Number of courses enrolled: " << numberOfCourses << endl;
+
+    if (isTuitionPaid)
     {
-        outFile << "Student Name: " << getName() << endl;
-        outFile << "Student ID: " << studentID << endl;
-        outFile << "Number of courses enrolled: " << numberOfCourses << endl;
+        outFile << left << setw(10) << "Course No"
+                << setw(20) << "Course Name"
+                << setw(8) << "Credits"
+                << "Grade" << endl;
 
-        if (isTuitionPaid)
-        {
-            outFile << left << setw(10) << "Course No"
-                    << setw(20) << "Course Name"
-                    << setw(8) << "Credits"
-                    << "Grade" << endl;
+        for (int i = 0; i < numberOfCourses; ++i)
+            courses[i].print(outFile);
 
-            for (int i = 0; i < numberOfCourses; ++i)
-                courses[i].print(outFile);
-
-            outFile << "Total number of credits: " << getTotalCredits() << endl;
-            outFile << "Mid-Semester GPA: " << fixed << setprecision(2) << getGPA() << endl;
-        }
-        else
-        {
-            outFile << "Grades are being withheld due to unpaid tuition." << endl;
-            outFile << "Tuition due: $" <<billingAmount(tuitionPerCredit) << endl;
-        }
-
-        outFile << endl;
+        outFile << "Total number of credits: " << getTotalCredits() << endl;
+        outFile << "Mid-Semester GPA: " << fixed << setprecision(2) << getGPA() << endl;
     }
+    else
+    {
+        outFile << "notlar ogrenim ucreti odenmemesi nedeniyle bekletiliyor." << endl;
+        outFile << "Harc miktari: $" << billingAmount(tuitionPerCredit) << endl;
+    }
+
+    outFile << endl;
+}
 
 int main()
 {
     ifstream inFile("input.txt");
     ofstream outFile("output.txt");
-
-    if (!inFile || !outFile)
-    {
-        cerr << "Error opening files." << endl;
-        return 1;
-    }
 
     int studentCount, tuitionPerCredit;
     inFile >> studentCount >> tuitionPerCredit;
@@ -272,6 +273,6 @@ int main()
     inFile.close();
     outFile.close();
 
-    cout << "Reports generated successfully in output.txt." << endl;
+    cout << "Not raporu olusturuldu" << endl;
     return 0;
 }
